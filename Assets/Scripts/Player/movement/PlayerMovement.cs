@@ -26,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
         this._movementVector.x = Input.GetAxisRaw("Horizontal");
         this._movementVector.y = Input.GetAxisRaw("Vertical");
 
+        //normalisation of vector if speed above 1 (for diagonal movements)
+        if(this._movementVector.magnitude > 1)
+            this._movementVector.Normalize();
+
         this.animator.SetFloat("Horizontal", _movementVector.x);
         this.animator.SetFloat("Vertical", _movementVector.y);
         this.animator.SetInteger("State", this.GetComponent<PlayerInteract>().isGrabbing() ? 1 : 0);
